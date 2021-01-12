@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Route to view' do
   it 'has an index page' do
-    visit students_path
+    visit '/students'
     expect(page.status_code).to eq(200)
   end
 end
@@ -12,22 +12,22 @@ describe 'Multiple students' do
     Student.create!(first_name: "Daenerys", last_name: "Targaryen")
     Student.create!(first_name: "Lindsey", last_name: "Stirling")
 
-    visit students_path
+    visit '/students'
     expect(page).to have_content(/Daenerys|Lindsey/)
   end
 end
 
 describe 'form page' do
   it 'renders the form with the new action' do
-    visit new_student_path
+    visit '/students/new'
     expect(page).to have_content("Student Form")
   end
 
   it 'ensures that the new form submits content and renders form content' do
-    visit new_student_path
+    visit '/students/new'
 
-    fill_in 'student[first_name]', with: "Margaery"
-    fill_in 'student[last_name]', with: "Tyrell"
+    fill_in 'first_name', with: "Margaery"
+    fill_in 'last_name', with: "Tyrell"
 
     click_on "Submit Student"
 
